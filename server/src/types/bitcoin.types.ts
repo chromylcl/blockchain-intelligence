@@ -10,3 +10,25 @@ export interface BitcoinAddressInfo {
   chain_stats: BitcoinAddressStats;
   mempool_stats: BitcoinAddressStats;
 }
+export interface BitcoinTxOutput {
+  scriptpubkey_address?: string;
+  value: number;
+}
+
+export interface BitcoinTxInput {
+  prevout: BitcoinTxOutput | null;
+}
+
+export interface BitcoinTxStatus {
+  confirmed: boolean;
+  block_height?: number;
+  block_time?: number;
+}
+
+export interface BitcoinRawTransaction {
+  txid: string;
+  fee: number;
+  vin: BitcoinTxInput[];
+  vout: BitcoinTxOutput[];
+  status: BitcoinTxStatus;
+}

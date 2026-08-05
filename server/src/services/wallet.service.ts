@@ -1,6 +1,12 @@
-import { getBitcoinAddressInfo } from "./bitcoin.service";
+import {
+  getBitcoinAddressInfo,
+  getBitcoinTransactions,
+} from "./bitcoin.service";
 export const analyzeWallet = async (address: string) => {
-  const addressInfo = await getBitcoinAddressInfo(address);
+  const [addressInfo, transactions] = await Promise.all([
+    getBitcoinAddressInfo(address),
+    getBitcoinTransactions(address),
+  ]);
   const totalReceivedBTC = addressInfo.chain_stats.funded_txo_sum / 100000000;
   const totalSentBTC = addressInfo.chain_stats.spent_txo_sum / 100000000;
   const balanceBTC =
